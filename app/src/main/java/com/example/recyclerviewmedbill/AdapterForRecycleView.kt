@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AdapterForRecycleView() : RecyclerView.Adapter<FancyViewHolder>() {
 
-    var myList = mutableListOf<String>("A", "B", "C", "D", "E", "F")
+    var myList = mutableListOf<String>("A", "B", "C")
+    var doneMarkning = mutableListOf<Boolean>(false, true, false)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FancyViewHolder {
@@ -30,17 +31,29 @@ class AdapterForRecycleView() : RecyclerView.Adapter<FancyViewHolder>() {
             Log.d("RecyleView", "onBindViewHolder")
 
             holder.theRowText.text = myList[position]
+            holder.rowNumberText.text = position.toString()
+
+            if(doneMarkning[position] ==  true)
+            {
+                holder.doneTextView.visibility = View.VISIBLE
+            } else {
+                holder.doneTextView.visibility = View.INVISIBLE
+            }
+
             holder.itemView.setOnClickListener {
                 Log.d("RecyleView", "Clicka på rad nummber " + position.toString())
 
-                myList.removeAt(position)
+                //myList.removeAt(position)
+
+                if(doneMarkning[position] ==  true)
+                {
+                    doneMarkning[position] = false
+                } else {
+                    doneMarkning[position] = true
+                }
 
                 notifyDataSetChanged()
-
-
             }
-
-
 
         }
 }
@@ -48,5 +61,9 @@ class AdapterForRecycleView() : RecyclerView.Adapter<FancyViewHolder>() {
 class FancyViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 
     var theRowText = view.findViewById<TextView>(R.id.theRowText)
+
+    var rowNumberText = view.findViewById<TextView>(R.id.rowNumber)
+
+    var doneTextView = view.findViewById<TextView>(R.id.doneTextView)
 
     }

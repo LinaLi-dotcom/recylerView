@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
 
             theAdapter.myList.add(personName)
+            theAdapter.doneMarkning.add(false)
+
             theAdapter.notifyDataSetChanged()
 
         }
